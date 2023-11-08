@@ -34,5 +34,8 @@
   "editor.quickSuggestions": {
     "comments": "on",
     "strings": "on"
+  },
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
   }
 }
