@@ -1,7 +1,8 @@
 import { ref } from 'vue'
 import axios from 'axios'
 
-const employees = ref([])
+const anime = ref([])
+const games = ref([])
 const pages = ref(1)
 const loading = ref(false)
 const activePage = ref(1)
@@ -15,26 +16,36 @@ const api = axios.create({
   },
 })
 
-const getEmployees = async () => {
+const getAnime = async () => {
   loading.value = true
-  const { data, headers } = await api.get('/api/employees', {
+  const { data, headers } = await api.get('/api/animes', {
     params: {
       page: activePage.value,
       size: pageSize.value,
     },
   })
-  employees.value = data
+  anime.value = data
   pages.value = Number(headers['x-total-pages']) || 1
   loading.value = false
 }
 
-const getDepartment = async (departmentId) => {
-  const { data } = await api.get(`/api/departments/${departmentId}`)
-  return data
+const getGames = async () => {
+  loading.value = true
+  const { data, headers } = await api.get('/api/games', {
+    params: {
+      page: activePage.value,
+      size: pageSize.value,
+    },
+  })
+  games.value = data
+  pages.value = Number(headers['x-total-pages']) || 1
+  loading.value = false
 }
 
+
+
 const useAPI = () => {
-  return { employees, pages, activePage, loading, pageSize, getEmployees, getDepartment }
+  return { anime, games, pages, activePage, loading, pageSize, getAnime, getGames }
 }
 
 export default useAPI
