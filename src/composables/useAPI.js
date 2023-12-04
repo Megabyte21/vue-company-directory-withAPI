@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
 
-const anime = ref([])
+const animes = ref([])
 const games = ref([])
 const pages = ref(1)
 const loading = ref(false)
@@ -24,7 +24,7 @@ const getAnime = async () => {
       size: pageSize.value,
     },
   })
-  anime.value = data
+  animes.value = data
   pages.value = Number(headers['x-total-pages']) || 1
   loading.value = false
 }
@@ -45,7 +45,7 @@ const getGames = async () => {
 
 
 const useAPI = () => {
-  return { anime, games, pages, activePage, loading, pageSize, getAnime, getGames }
+  return { animes, games, pages, activePage, loading, pageSize, getAnime, getGames }
 }
 
 export default useAPI

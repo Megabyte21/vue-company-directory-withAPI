@@ -5,10 +5,10 @@ import MainSearch from '@/components/MainSearch.vue';
 import MainCards from '@/components/MainCards.vue';
 import MainPagination from '@/components/MainPagination.vue';
 
-const { getEmployees, loading } = useAPI()
+const { getAnime, loading } = useAPI()
 
 onMounted(async () => {
-    await getEmployees()
+    await getAnime()
 })
 </script>
 
