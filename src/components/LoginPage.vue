@@ -1,62 +1,42 @@
 <script setup>
-  import { ref } from 'vue'
-  import { useAuth } from '@/composables/useAuth'
+import { ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
-  const { isAuthenticated, logout, user } = useAuth()
+import { useAuth } from '@/composables/useAuth'
+const { login, logout } = useAuth()
 
-  const brand = ref(import.meta.env.VITE_APP_NAME)
+const router = useRouter()
+const route = useRoute()
+
+const username = ref('')
+const password = ref('')
+
+const logUserIn = async () => {
+  if (await login(username.value, password.value)) {
+    if (route.query.redirect) {
+      router.push(route.query.redirect)
+    } else {
+      router.push({ name: 'Home' })
+    }
+  } else {
+    logout()
+  }
+}
 </script>
 
 <template>
-  <nav>
-    <div class="wrapper">
-      <RouterLink :to="{ name: 'Home' }" class="brand">
-        <span class="brand-title">{{ brand }}</span>
-      </RouterLink>
-      <div class="menu">
-        <p v-show="isAuthenticated" class="px-2 py-4">
-          Welcome back
-          <strong
-            ><i>{{ user.name }}</i></strong
-          >
-        </p>
-        <div v-if="isAuthenticated">
-          <RouterLink :to="{ name: 'Settings' }" href="#" class="menu-item">Settings</RouterLink>
-          <button class="menu-logout" @click="logout">Logout</button>
-        </div>
-        <div v-else>
-          <RouterLink :to="{ name: 'Login' }" href="#" class="menu-login">Login</RouterLink>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <form class="login-form" @submit.prevent="logUserIn">
+    <input v-model="username" type="text" placeholder="Username" />
+    <input v-model="password" type="password" placeholder="Password" />
+    <button type="submit" class="bg-green-500 px-4 py-2">Log-In</button>
+  </form>
 </template>
 
 <style scoped lang="postcss">
-  nav {
-    @apply flex h-20 bg-slate-900 text-slate-200;
-    .wrapper {
-      @apply container mx-auto flex w-full items-center justify-between;
-      .brand {
-        &-title {
-          @apply text-2xl font-bold text-yellow-500;
-        }
-      }
-      .menu {
-        @apply flex gap-2;
-        & div {
-          @apply py-2;
-        }
-        &-item {
-          @apply rounded-md px-4 py-2 hover:bg-yellow-500 hover:text-slate-900;
-        }
-        &-login {
-          @apply rounded-md bg-green-500 px-4 py-2 text-red-100 hover:bg-green-700;
-        }
-        &-logout {
-          @apply mx-2 rounded-md bg-red-500 px-4 py-2 text-red-100 hover:bg-red-700;
-        }
-      }
-    }
+.login-form {
+  @apply mx-auto mt-80 flex max-w-md flex-col gap-4 rounded-md bg-white p-8 shadow-lg;
+  & input {
+    @apply px-4 py-2 text-xl ring-1 ring-slate-300;
   }
+}
 </style>
