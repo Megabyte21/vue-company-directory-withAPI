@@ -23,32 +23,17 @@ onUnmounted(() => {
 
 <template>
   <main
-    class="min-h-screen bg-gradient-to-b from-amber-900 to-yellow-300 font-poppins block justify-around"
+    class="min-h-screen bg-gradient-to-b from-blue-900 to-red-600 font-poppins block justify-around"
   >
-<!--     <div
-      v-if="currentAnime"
-      class="flex flex-col gap-6"
-    >
-      <img class="p-8 h-120 w-64 translate-y-0"
-        :src="currentAnime.coverArt"
-        :alt="currentAnime.name"
-      />
-      <h1 class="text-white-800 text-4xl font-bold">
-        {{ currentAnime.name }}
-      </h1>
-      <p class="text-blue-800 text-xl translate-y-5 text-justify inline-block">
-        {{ currentAnime.description }}
-      </p>
-    </div> -->
-    <div class="img">
+    <div class="img" v-if="currentAnime">
         <img :src="currentAnime.coverArt" :alt="currentAnime.name"/>
     </div>
-    <div class="name">
+    <div class="name" v-if="currentAnime">
         <h1>
             {{ currentAnime.name }}
         </h1>
     </div>
-    <div class="desc">
+    <div class="desc" v-if="currentAnime">
         {{ currentAnime.description }}
     </div>
   </main>
@@ -56,12 +41,12 @@ onUnmounted(() => {
 
 <style scoped lang="postcss">
 .img {
-    @apply -mx-0 -my-0 float-right
+    @apply float-right;
 }
 .name{
-    @apply text-center translate-y-5 text-4xl text-red-500
+    @apply text-center translate-y-5 text-4xl text-red-500;
 }
 .desc{
-    @apply translate-y-10 overflow-hidden
+    @apply inline-block align-top text-green-500 text-lg p-12 m-7;
 }
 </style>

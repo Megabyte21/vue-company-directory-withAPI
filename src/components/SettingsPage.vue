@@ -22,14 +22,20 @@ const addAnime = async () => {
     description: animeDescription.value
   })
 }
+
+function myRemove() {
+  document.getElementById("name").value = ''
+  document.getElementById('imgurl').value = ''
+  document.getElementById('descp').value =''
+}
 </script>
 
 <template>
-  <form class="login-form" @submit.prevent="addAnime">
-    <input v-model="animeName" type="text" placeholder="name" />
-    <input v-model="coverArt" type="text" placeholder="imageUrl" />
-    <input v-model="animeDescription" type="text" placeholder="description" />
-    <button type="submit" class="bg-green-500 px-4 py-2">submit</button>
+  <form id="addAnime" class="login-form" @submit.prevent="addAnime">
+    <input id="name" v-model="animeName" type="text" placeholder="name" />
+    <input id="imgurl" v-model="coverArt" type="text" placeholder="imageUrl" />
+    <input id="descp" v-model="animeDescription" type="text" placeholder="description" />
+    <button type="submit" value="submit" class="bg-green-500 px-4 py-2" @onclick="myRemove()">submit</button>
   </form>
 </template>
 
