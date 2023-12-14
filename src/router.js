@@ -1,16 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuth } from '@/composables/useAuth'
-const { isAuthenticated } = useAuth()
+const {isAuthenticated} = useAuth()
 import MainPage from '@/components/MainPage.vue'
 import LoginPage from '@/components/LoginPage.vue'
 import SettingsPage from '@/components/SettingsPage.vue'
 import NotFound from '@/components/NotFound.vue'
 
 const routes = [
-  { path: '/', name: 'Home', component: MainPage },
+  { path: '/vue-company-directory-api/', name: 'Home', component: MainPage },
   { path: '/login', name: 'Login', component: LoginPage },
-  { path: '/settings', name: 'Settings', component: SettingsPage },
-  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+  { path: '/settings', name: 'Settings', component: SettingsPage, meta: {requiresAuth: true} },
+  { path: '/:pathMatch(.)', name: 'NotFound', component: NotFound },
+  { path: '/other', name: 'Other', component: () => import('@/views/OtherPage.vue') },
 ]
 
 const router = createRouter({
