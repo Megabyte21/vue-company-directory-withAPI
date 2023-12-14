@@ -12,6 +12,7 @@ const routes = [
   { path: '/settings', name: 'Settings', component: SettingsPage, meta: {requiresAuth: true} },
   { path: '/:pathMatch(.)', name: 'NotFound', component: NotFound },
   { path: '/other', name: 'Other', component: () => import('@/views/OtherPage.vue') },
+  { path: '/api/animes/:id', name: 'Anime', component: () => import('@/views/AnimePage.vue')},
 ]
 
 const router = createRouter({

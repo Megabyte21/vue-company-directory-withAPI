@@ -7,6 +7,7 @@ const pages = ref(1)
 const loading = ref(false)
 const activePage = ref(1)
 const pageSize = ref(8)
+const currentAnime = ref(null)
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -42,10 +43,16 @@ const getGames = async () => {
   loading.value = false
 }
 
+const fetchAnime = async (id) => {
+  const { data } = await api.get(`/api/animes/${id}`)
+  currentAnime.value = data
+  console.log(data)
+}
+
 
 
 const useAPI = () => {
-  return { animes, games, pages, activePage, loading, pageSize, getAnime, getGames }
+  return { animes, games, pages, activePage, loading, pageSize, getAnime, getGames, fetchAnime, currentAnime }
 }
 
 export default useAPI

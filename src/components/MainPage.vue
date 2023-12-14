@@ -15,7 +15,6 @@ onMounted(async () => {
 <template>
     <p v-if="loading">Loading...</p>
     <div v-else class="wrapper">
-        <MainSearch />
         <MainCards />
         <MainPagination />
     </div>

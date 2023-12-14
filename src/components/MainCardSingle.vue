@@ -14,6 +14,7 @@ const props = defineProps({
         createdAt:"2023-01-01",
         animeID: "123",
         name: "This is a Title",
+        coverArt: "",
         description:"District Research Officer",
         updatedAt:"2023-01-01",
       }
@@ -29,15 +30,17 @@ const selectCard = () => {
 </script>
 
 <template>
-    <div class="card" @click="selectCard">
-        <div class="card-image">
-            <img src="" alt="" srcset="" />
-        </div>
-        <div class="card-details">
-           <p class="card-details-name">{{ props.anime.name }}</p>
-           <p class="card-details-quote">{{ props.anime.description }}</p>
-        </div>
+  <RouterLink v-if="props.anime.animeID" :to="`/api/animes/${props.anime.animeID}`">
+  <div class="card" @click="selectCard">
+    <div class="card-image">
+      <img :src="props.anime.coverArt" alt="" srcset="" />
     </div>
+    <div class="card-details">
+      <p class="card-details-name font-poppins">{{ props.anime.name }}</p>
+      <p class="card-details-quote">{{ props.anime.description }}</p>
+    </div>
+  </div>
+  </RouterLink>
 </template>
 
 <style scoped lang="postcss">
@@ -57,7 +60,7 @@ const selectCard = () => {
         @apply -mt-2 text-xs font-bold text-blue-700;
       }
       &-quote {
-        @apply pt-4 text-lg italic text-green-800;
+        @apply pt-4 text-lg italic text-green-800 line-clamp-4;
       }
     }
 }
